@@ -1,0 +1,24 @@
+@import './system.css';
+@import './flex.css';
+@import './spacing.css';
+@import './typography.css';
+
+/* general settings */
+@font-face {
+  font-family: 'Ubuntu';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 400;
+  src: local(''),
+    url('/fonts/Ubuntu-Regular.ttf') format('truetype')
+}
+
+body {
+  font-family: 'Ubuntu', sans-serif;
+  font-display: swap;
+}
+/* end of general settings */
+
+.cursor-pointer {
+  cursor: pointer !important;
+}
