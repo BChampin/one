@@ -1,19 +1,35 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
+import type { ProviderType } from '@/types'
 
-const isLoading = ref(false)
-async function onSubmit(event: Event) {
-  event.preventDefault()
-  isLoading.value = true
+// const isLoading = ref(false)
+// async function onSubmit(event: Event) {
+//   event.preventDefault()
+//   isLoading.value = true
 
-  setTimeout(() => {
-    isLoading.value = false
-  }, 3000)
+//   setTimeout(() => {
+//     isLoading.value = false
+//   }, 3000)
+// }
+
+// Variables
+const oauthLoading = ref(false)
+const authStore = useAuthStore()
+
+// Functions
+function fireOAuth (providerType: ProviderType) {
+  authStore.fireOAuthProcess(providerType)
 }
 
-function fireOAuth (providerType: string) {
-  console.log(providerType)
-}
+// Lifecycle
+onMounted(async () => {
+  authStore.init()
+  const code = new URLSearchParams(window.location.search).get('code')
+  if (code) {
+    oauthLoading.value = true
+    await authStore.handleOAuthCode(code)
+  }
+})
 </script>
 
 <template>
