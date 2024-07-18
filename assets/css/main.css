@@ -1,6 +1,7 @@
 @import './system.css';
 @import './flex.css';
 @import './spacing.css';
+@import './border.css';
 @import './typography.css';
 
 /* general settings */
@@ -16,9 +17,22 @@
 body {
   font-family: 'Ubuntu', sans-serif;
   font-display: swap;
+  margin: 0;
 }
 /* end of general settings */
 
 .cursor-pointer {
   cursor: pointer !important;
+}
+
+[aria-busy='true'] {
+  cursor: progress;
+}
+
+[aria-controls] {
+  cursor: pointer;
+}
+
+[aria-disabled] {
+  cursor: default;
 }

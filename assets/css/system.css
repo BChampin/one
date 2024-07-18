@@ -28,7 +28,10 @@
 
 /* backgrounds */
 .bg-disabled { background: var(--color-disabled) }
-
+.bg-light { background: var(--color-light) }
+.bg-dark { background: var(--color-dark) }
+.text-light { color: var(--color-light) }
+.text-dark { color: var(--color-dark) }
 
 body.body--light {
   background: var(--color-light);
