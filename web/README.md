@@ -73,8 +73,3 @@ bun run preview
 ```
 
 Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
-
-
-## References
-- Components based on [shadcn-vue](https://www.shadcn-vue.com)
-- Icons library : https://icones.js.org/collection/ph

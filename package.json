@@ -1,22 +1,19 @@
 {
-  "name": "nuxt-app",
+  "name": "one-core",
+  "version": "1.0.0",
+  "description": "",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BChampin/one.git"
+  },
+  "author": "BChampin <hello@champin.dev> (http://champin.dev/)",
   "private": true,
-  "type": "module",
-  "scripts": {
-    "build": "nuxt build",
-    "dev": "nuxt dev",
-    "generate": "nuxt generate",
-    "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
-  },
-  "dependencies": {
-    "@nuxt/icon": "^1.1.1",
-    "@pinia/nuxt": "^0.5.1",
-    "nuxt": "^3.12.3",
-    "pinia": "^2.1.7",
-    "vue": "latest"
-  },
-  "devDependencies": {
-    "@iconify-json/ph": "^1.1.13"
-  }
+  "homepage": "https://github.com/BChampin/one#readme",
+  "workspaces": [
+    "lib",
+    "fronts/app",
+    "fronts/manager",
+    "fronts/vdc",
+    "fronts/web"
+  ]
 }

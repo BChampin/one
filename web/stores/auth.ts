@@ -18,7 +18,6 @@ export const useAuthStore = defineStore('auth', () => {
   // Actions
   function init () {
     console.log('authStore has been init')
-
     // TODO : should check cookies, if they are valid and not expired
     // If so, set them to store; if not let it be so user can log back
   }

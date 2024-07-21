@@ -4,6 +4,10 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   css: ['~/assets/css/main.css'],
 
+  alias: {
+    '@types': '../../types',
+  },
+
   components: [
     {
       path: '~/components',
