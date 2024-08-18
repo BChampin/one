@@ -4,10 +4,6 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   css: ['~/assets/css/main.css'],
 
-  alias: {
-    '@types': '../../types',
-  },
-
   components: [
     {
       path: '~/components',
@@ -26,8 +22,8 @@ export default defineNuxtConfig({
       USER_FIRSTNAME: process.env.NUXT_USER_FIRSTNAME,
       API_URL: process.env.NUXT_API_URL,
       GITLAB_CLIENT_ID: process.env.NUXT_GITLAB_CLIENT_ID,
+      GITLAB_CLIENT_SECRET: process.env.NUXT_GITLAB_CLIENT_SECRET,
       GITLAB_CALLBACK_URL: process.env.NUXT_GITLAB_CALLBACK_URL,
-      GITLAB_EXCHANGE_CODE_URL: process.env.NUXT_GITLAB_EXCHANGE_CODE_URL,
 
       // PLUGIN : weather
       WEATHER_CITY_LABEL: process.env.NUXT_WEATHER_CITY_LABEL,
