@@ -1,15 +1,14 @@
 <script setup lang="ts">
-import { useGitStore } from '../store'
-import type { GitType } from '../types/GitTypes'
+import type { GitType } from '../types'
 
 // Variables
-const gitStore = useGitStore()
+const { $git } = useNuxtApp()
 const oauthLoading = ref(false)
 
 // Functions
 function initAndOauthFireProcess (gitType: GitType) {
-  gitStore.init(gitType)
-  gitStore.oauthFireProcess()
+  $git.init(gitType)
+  $git.oauthFireProcess()
 }
 
 // Lifecycle
@@ -20,14 +19,14 @@ onMounted(() => {
     const code = new URLSearchParams(window.location.search).get('code')
     if (code) {
       oauthLoading.value = true
-      gitStore.init('gitlab')
-      await gitStore.oauthHandleCode(code)
+      $git.init('gitlab')
+      await $git.oauthHandleCode(code)
     }
 
     // Check for previous instance in localStorage
-    gitStore.init('gitlab')
-    const isGitLabLogged = gitStore.isLogged
-    if (!isGitLabLogged) gitStore.close()
+    $git.init('gitlab')
+    const isGitLabLogged = $git.isLogged
+    if (!isGitLabLogged) $git.close()
   }, 200)
 })
 
