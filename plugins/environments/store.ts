@@ -1,5 +1,7 @@
+import type { Ref } from 'vue'
 import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
+import type { Environment } from './types'
 // import { WEATHER_CODES } from './types'
 // import type { PluginOptions } from './types'
 
@@ -13,26 +15,28 @@ export const useEnvironmentsStore = defineStore('environments', () => {
   // Properties
   const REPO_PREFIX = 'environments'
   const REPO_FILE = 'environments.json'
+  const environments : Ref<Environment[]> = ref([])
+  const currentEnvironment : Ref<Environment> = ref()
 
   // Actions
   async function read () {
     const { $git } = useNuxtApp()
-    // const requestTest = await $git.getRawRepo()
-    // console.log(requestTest)
-    // return 'success ... OR NOT'
+    const data = await $git.read(`${REPO_PREFIX}/${REPO_FILE}`)
+    if (data) environments.value = JSON.parse(data)
+  }
 
-    const request = await $git.read(`${REPO_PREFIX}/${REPO_FILE}`)
-    console.log(request)
-    // const { data, status, error } = await $git.gitInstance?.$gitFetch(`files/${encodeURIComponent(`${REPO_PREFIX}/${REPO_FILE}`)}/raw?ref=main`, {
-    //   method: 'GET'
-    // })
-    // console.log({ data, status, error })
-    return 'success ... OR NOT'
+  function setCurrentEnvironment (env: Environment) {
+    currentEnvironment.value = env
   }
 
   return {
+    // Properties
+    environments,
+    currentEnvironment,
+
     // Actions
     read,
+    setCurrentEnvironment,
   }
   // // Properties
   // const loading = ref(false)
