@@ -1,5 +1,5 @@
 import type { Ref } from 'vue'
-import type { GitType } from './types'
+import type { GitType, GitCommitType } from './types'
 import {
   localStorageSet,
   localStorageGet,
@@ -84,18 +84,47 @@ export default defineNuxtPlugin({
       }
     }
     // create
+    async function create (payload: GitCommitType): Promise<any> {
+      await checkRequestFaisability()
+      return gitFetch.value('commits', {
+        method: 'POST',
+        body: {
+          branch: 'main',
+          commit_message: payload.message,
+          actions: [{
+            action: 'create',
+            file_path: payload.path,
+            content: payload.content,
+          }],
+        },
+      })
+    }
+
     // read
     async function read (path: string): Promise<any> {
-      console.log('before checkRequestFaisability')
       await checkRequestFaisability()
-      console.log('after checkRequestFaisability')
-
       return gitFetch.value(`files/${encodeURIComponent(path)}/raw?ref=main`, {
         method: 'GET'
       })
     }
 
-    // udapte
+    // update
+
+    async function update (payload: GitCommitType): Promise<any> {
+      await checkRequestFaisability()
+      return gitFetch.value('commits', {
+        method: 'POST',
+        body: {
+          branch: 'main',
+          commit_message: payload.message,
+          actions: [{
+            action: 'update',
+            file_path: payload.path,
+            content: payload.content,
+          }],
+        },
+      })
+    }
     // delete
 
 
@@ -169,7 +198,9 @@ export default defineNuxtPlugin({
       close,
       oauthFireProcess,
       oauthHandleCode,
+      create,
       read,
+      update,
     }
 
     return {

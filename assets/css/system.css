@@ -33,6 +33,9 @@
 .text-light { color: var(--color-light) }
 .text-dark { color: var(--color-dark) }
 
+.text-text { color: var(--color-text) }
+.text-label { color: var(--color-label) }
+
 body.body--light {
   background: var(--color-light);
   color: var(--color-text);

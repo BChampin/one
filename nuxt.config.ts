@@ -15,7 +15,8 @@ export default defineNuxtConfig({
 
   plugins: [
     '~/plugins/git/index',
-    '~/plugins/weather/index'
+    '~/plugins/weather/index',
+    '~/plugins/bookmarks/index'
   ],
 
   runtimeConfig: {

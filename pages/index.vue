@@ -18,7 +18,7 @@
         <WeatherCard />
       </div>
       <div class="row pa-lg">
-        <EnvironmentsCard />
+        <BookmarksCard />
       </div>
     </div>
     <LoginPage v-else />
