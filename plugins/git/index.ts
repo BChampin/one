@@ -37,7 +37,6 @@ export default defineNuxtPlugin({
           'git-gitlab-state',
           existing || generateRandomState()
         )
-        console.log('existing', existing)
         if (existing) await refreshToken()
       }
     }

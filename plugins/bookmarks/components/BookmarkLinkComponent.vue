@@ -6,7 +6,7 @@ import type { BookmarkLink, BookmarkLinkModalType } from '../types'
 const { modelValue } = defineProps<{
   modelValue: BookmarkLink
 }>()
-const emit = defineEmits(['update:model-value'])
+const emit = defineEmits(['update:model-value', 'delete'])
 const bookmarkLinkModalType : Ref<BookmarkLinkModalType | null> = ref(null)
 
 const items = [
@@ -85,7 +85,11 @@ onBeforeUnmount(() => {
       @update:model-value="modelValue = $event"
       @close="bookmarkLinkModalType = null"
       @save="
-        askEmit();
+        emit('update:model-value', modelValue);
+        bookmarkLinkModalType = null
+      "
+      @delete="
+        emit('delete');
         bookmarkLinkModalType = null
       "
     />

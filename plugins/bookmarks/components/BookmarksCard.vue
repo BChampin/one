@@ -12,19 +12,16 @@ await bookmarksStore.read()
 const firstSpace = bookmarksStore.bookmarks[0]
 if (firstSpace) bookmarksStore.setCurrentBookmarkSpace(firstSpace)
 
-const currentBookmarkSpace = computed(() => bookmarksStore.currentBookmarkSpace)
 const mappedNavigation = computed(() => {
   return bookmarksStore.bookmarks.map((space: BookmarkSpace) => {
     return {
       label: space.name,
-      icon: `ph:${space.icon}`,
-      active: currentBookmarkSpace.value.name === space.name,
+      active: bookmarksStore.currentBookmarkSpace?.name === space.name,
       badge: space.categories.reduce((acc, cat) => acc + cat.links.length, 0),
       click: () => bookmarksStore.setCurrentBookmarkSpace(space)
     }
   })
 })
-
 
 // Editing
 const showEditBtn = ref('')
@@ -64,7 +61,7 @@ const bookmarkLinkModalType : Ref<BookmarkLinkModalType | null> = ref(null)
       </div>
     </div>
 
-    <div v-if="!bookmarksStore.needToSetupPlugin" class="flex no-wrap mt-md justify-between gutter-x-md">
+    <div v-if="bookmarksStore.needToSetupPlugin" class="flex no-wrap mt-md justify-between gutter-x-md">
       <div class="text-italic text-label">
         It seems this plugin has never been used or cannot reach the bookmarks files correctly. Would you like to try to setup the plugin ?
       </div>
@@ -74,9 +71,9 @@ const bookmarkLinkModalType : Ref<BookmarkLinkModalType | null> = ref(null)
       />
     </div>
 
-    <div v-if="currentBookmarkSpace" class="row">
+    <div v-if="bookmarksStore.currentBookmarkSpace" class="row">
       <div
-        v-for="(category, iCat) of currentBookmarkSpace.categories"
+        v-for="(category, iCat) of bookmarksStore.currentBookmarkSpace.categories"
         :key="iCat"
         class="col-12 col-md-6 pa-md mt-md"
       >
@@ -127,6 +124,7 @@ const bookmarkLinkModalType : Ref<BookmarkLinkModalType | null> = ref(null)
             <BookmarkLinkComponent
               v-model="category.links[iLink]"
               @update:model-value="saveBookmarks"
+              @delete="category.links.splice(iLink); saveBookmarks();"
             />
           </div>
           <UButton
@@ -155,7 +153,7 @@ const bookmarkLinkModalType : Ref<BookmarkLinkModalType | null> = ref(null)
           icon="ph:plus"
           label="Add category"
           @click="
-            currentBookmarkSpace.categories.push({
+            bookmarksStore.currentBookmarkSpace.categories.push({
               name: 'New category',
               links: []
             });
