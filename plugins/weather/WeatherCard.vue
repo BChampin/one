@@ -4,16 +4,13 @@ import { useWeatherStore } from './store'
 
 const weatherStore = useWeatherStore()
 
-// Functions
-function refresh () {
-  weatherStore.refresh()
-}
-
 // LIFECYCLE HOOKS
 onMounted(() => {
   const tenMinutes = Date.now() - 600000
   const lastFetch = weatherStore.formattedData?.timestamp || null
-  if (!weatherStore.formattedData || (!lastFetch || lastFetch < tenMinutes)) refresh()
+  if (!weatherStore.formattedData.timestamp || (!lastFetch || lastFetch < tenMinutes)) {
+    nextTick(() => weatherStore.refresh())
+  }
 })
 </script>
 
@@ -41,7 +38,7 @@ onMounted(() => {
             style="height:1rem;"
           />
         </a>
-        <div class="cursor-pointer" @click="refresh">
+        <div class="cursor-pointer" @click="weatherStore.refresh()">
           <img
             src="./svg/reload.svg"
             style="height:1rem;"

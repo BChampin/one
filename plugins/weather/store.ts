@@ -40,7 +40,8 @@ export const useWeatherStore = defineStore('weather', () => {
     return {
       city: cityLabel.value,
       today: days[0],
-      nextDays: days.slice(1)
+      nextDays: days.slice(1),
+      timestamp: undefined
     }
   })
 
