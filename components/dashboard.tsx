@@ -1,13 +1,11 @@
 'use client';
 
-import { useGit } from '@/context/Git';
+import BookmarkCard from '@/modules/bookmark/BookmarkComponents'
 
 export default function Dashboard () {
-  const usGit = useGit()
-
   return (
     <div>
-      Here's the dashboard
+      <BookmarkCard />
     </div>
   )
 }

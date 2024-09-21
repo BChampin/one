@@ -3,7 +3,9 @@ import type { Provider } from "next-auth/providers"
 import GitLab from "next-auth/providers/gitlab"
 
 const providers: Provider[] = [
-  GitLab
+  GitLab({
+    authorization: 'https://gitlab.com/oauth/authorize?scope=api read_user'
+  })
 ]
 
 export const providerMap = providers
@@ -17,7 +19,11 @@ export const providerMap = providers
   })
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
-  providers: [GitLab],
+  providers: [
+    GitLab({
+      authorization: 'https://gitlab.com/oauth/authorize?scope=api read_user'
+    })
+  ],
   callbacks: {
     async jwt({ token, trigger, account }) {
       if (trigger === 'signIn' && account?.access_token) token.accessToken = account.access_token

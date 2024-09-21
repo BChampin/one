@@ -11,7 +11,15 @@ export default function GitWrapper ({ children, session }) {
 
   return (
     <GitProvider>
-      {children}
+      {session ? (
+        <>
+          {children}
+        </>
+      ) : (
+        <div>
+          Loading.
+        </div>
+      )}
     </GitProvider>
   );
 };

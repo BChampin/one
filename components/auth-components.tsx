@@ -1,5 +1,5 @@
 import { signIn, signOut } from "@/auth"
-import { Button } from "./ui/button"
+import { Button } from '@nextui-org/react'
 
 export function SignIn({
   provider,

@@ -31,9 +31,10 @@ export function GitProvider({ children }) {
   const [state, dispatch] = useReducer(
     gitReducer,
     initialState
-
   );
-  const setSession = (session: any) => dispatch({ type: 'SET_SESSION', session });
+  const setSession = (session: any) => {
+    dispatch({ type: 'SET_SESSION', session })
+  };
 
   // TODO make this computed based on state.session / const baseRequest =
   // {
@@ -49,13 +50,28 @@ export function GitProvider({ children }) {
   // }
 
   const gitRead = async (path: string) => {
-    return `path: ${path}`
+    const { session } = await state
+    if (!session) return
+    const baseUrl = `https://gitlab.com/api/v4/projects/${process.env.NEXT_PUBLIC_GITLAB_PROJECT_ID}/repository/`
+    const readSpecificPath = `files/${encodeURIComponent(path)}/raw?ref=main`
+    const request = await fetch(
+      `${baseUrl}${readSpecificPath}`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${session?.accessToken}`,
+        }
+      }
+    ).then((res) => res.json())
+
+    return request
   }
 
   const value = {
+    dispatch,
     type: state.type,
     session: state.session,
-    dispatch,
     setSession,
     gitRead,
   };

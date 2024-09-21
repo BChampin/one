@@ -2,6 +2,7 @@ import { SignOut } from '@/components/auth-components'
 import { GitProvider } from '@/context/Git'
 import { SessionProvider } from 'next-auth/react'
 import GitWrapper from '@/components/wrappers/GitWrapper'
+import BookmarkProvider from '@/modules/bookmark/BookmarkProvider'
 
 // Everyhting that provides a wrapper should be put here
 export default function LoggedInWrapper ({ children, session }) {
@@ -19,10 +20,12 @@ export default function LoggedInWrapper ({ children, session }) {
         <div className="row mt-8">
           <SessionProvider session={session}>
             <GitProvider>
-              <GitWrapper session={session}>
-                {/* Main content AKA dashboard */}
-                {children}
-              </GitWrapper>
+              <BookmarkProvider> {/* Add the BookmarkProvider here */}
+                <GitWrapper session={session}>
+                  {/* Main content AKA dashboard */}
+                  {children}
+                </GitWrapper>
+              </BookmarkProvider>
             </GitProvider>
           </SessionProvider>
         </div>

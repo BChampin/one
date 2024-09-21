@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import "./css/one.css";
+import Providers from '@/app/providers';
 
 const ubuntuRegular = localFont({
   src: './fonts/Ubuntu-Regular.ttf',
@@ -22,7 +23,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`ubuntu ${ubuntuRegular.variable}`}>
-        {children}
+        <Providers>
+          {children}
+        </Providers>
       </body>
     </html>
   );
