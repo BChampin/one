@@ -1,32 +1,28 @@
 import { signIn, signOut } from "@/auth"
 import { Button } from '@nextui-org/react'
 
-export function SignIn({
-  provider,
-  ...props
-}: { provider?: string } & React.ComponentPropsWithRef<typeof Button>) {
+export function SignIn() {
   return (
     <form
       action={async () => {
         "use server"
-        await signIn(provider)
+        await signIn("gitlab")
       }}
     >
-      <Button {...props}>Sign In</Button>
+      <Button type="submit">Signin with GitLab</Button>
     </form>
   )
 }
 
-export function SignOut(props: React.ComponentPropsWithRef<typeof Button>) {
+export function SignOut() {
   return (
     <form
       action={async () => {
         "use server"
         await signOut()
       }}
-      className="w-full"
     >
-      <Button {...props}>Sign Out</Button>
+      <Button type="submit">Sign Out</Button>
     </form>
   )
 }

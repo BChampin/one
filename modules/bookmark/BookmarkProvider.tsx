@@ -4,7 +4,6 @@ import React, { useContext, useEffect, useReducer, useState } from 'react';
 import { BookmarkContext } from './BookmarkContext';
 import { GitContext } from '@/context/Git';
 import { BookmarkSpace } from './types'
-// import bookmarkReducer from './BookmarkReducer';
 
 interface BookmarkProviderProps {
   children: React.ReactNode;

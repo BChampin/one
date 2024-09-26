@@ -1,5 +1,4 @@
 import Link from 'next/link'
-import { useEffect } from 'react'
 import { useBookmarkContext } from './BookmarkContext';
 
 import {
@@ -8,6 +7,7 @@ import {
   Card,
   CardHeader,
   CardBody,
+  Divider,
   Tabs,
   Tab
 } from '@nextui-org/react'
@@ -25,14 +25,6 @@ export default function BookmarkCard () {
       if (spaceToSet) setCurrentSpace(spaceToSet)
     }
   }
-
-  // useEffect(() => {
-  //   const fetchResult = async () => {
-  //     console.log('Calling gitRead on mount');
-  //     handleGitReadClick()
-  //   };
-  //   fetchResult();
-  // }, [gitRead]);
 
   return (
     <Card>
@@ -93,7 +85,7 @@ function BookmarkSpaceComponent () {
 function BookmarkCategoryComponent ({ category }) {
   return (
     <div className='my-4'>
-      <hr className='mb-2' />
+      <Divider className='mb-2' />
       <div>
         {category.name}
       </div>
