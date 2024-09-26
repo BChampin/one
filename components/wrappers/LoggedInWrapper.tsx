@@ -3,6 +3,7 @@ import { GitProvider } from '@/context/Git'
 import { SessionProvider } from 'next-auth/react'
 import GitWrapper from '@/components/wrappers/GitWrapper'
 import BookmarkProvider from '@/modules/bookmark/BookmarkProvider'
+import WeatherProvider from '@/modules/weather/WeatherProvider'
 
 // Everyhting that provides a wrapper should be put here
 export default function LoggedInWrapper ({ children, session }) {
@@ -22,8 +23,10 @@ export default function LoggedInWrapper ({ children, session }) {
             <GitProvider>
               <BookmarkProvider> {/* Add the BookmarkProvider here */}
                 <GitWrapper session={session}>
-                  {/* Main content AKA dashboard */}
-                  {children}
+                  <WeatherProvider> {/* Add the WeatherProvider here */}
+                    {/* Main content AKA dashboard */}
+                    {children}
+                  </WeatherProvider>
                 </GitWrapper>
               </BookmarkProvider>
             </GitProvider>
