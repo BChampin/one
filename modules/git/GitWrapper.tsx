@@ -3,7 +3,7 @@
 import { useEffect } from 'react';
 import { GitProvider, useGit } from '@/context/Git';
 
-export default function GitWrapper ({ children, session }) {
+export default function GitWrapper ({ children, session } : { children: React.ReactNode }) {
   const usGit = useGit() // Value of createContext in the context file
   useEffect(() => {
     if (session && usGit) usGit.setSession(session)

@@ -3,7 +3,7 @@
 import BookmarkCard from '@/modules/bookmark/BookmarkComponents'
 import WeatherCard from '@/modules/weather/WeatherComponents'
 
-export default function Dashboard () {
+export default function HomePage() {
   return (
     <div>
       <div className="row my-4">
