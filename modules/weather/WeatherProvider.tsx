@@ -30,7 +30,6 @@ const WeatherProvider: React.FC<WeatherProviderProps> = ({ children }) => {
         forecast_days: 4
       })
     ).then((res) => res.json())
-    console.log(rq)
 
     // formattedData to return
     const days = []
