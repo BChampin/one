@@ -73,6 +73,11 @@ export const useOneStore = defineStore('one', () => {
     else return ''
   }
 
+  async function list (path: string): Promise<unknown> {
+    if (provider.value) return await provider.value.list(path)
+    else return ''
+  }
+
 
   const loggedIn = computed(() => !!provider.value)
 
@@ -85,5 +90,6 @@ export const useOneStore = defineStore('one', () => {
     loadProviderFromStorage,
     initProvider,
     read,
+    list,
   }
 })
