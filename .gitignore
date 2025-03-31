@@ -29,5 +29,7 @@ coverage
 
 *.tsbuildinfo
 
+# Manually added
+.env*
 .gitignored
 public/oneData

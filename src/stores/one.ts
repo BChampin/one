@@ -3,7 +3,7 @@ import { defineStore } from 'pinia'
 import type { OneProviderType } from '@/types'
 import { OneProviderLocal } from './OneProviderLocal'
 // import { OneProviderGithub } from './OneProviderGithub'
-// import { OneProviderGitlab } from './OneProviderGitlab'
+import { OneProviderGitlab } from './OneProviderGitlab'
 
 import { useRouter } from 'vue-router'
 
@@ -25,6 +25,10 @@ export const useOneStore = defineStore('one', () => {
   function setInLocalStorage () {
     localStorage.setItem('oneStore', JSON.stringify(getStoredStoreStructure()))
   }
+  function localStorageClear () {
+    localStorage.clear()
+    sessionStorage.clear()
+  }
 
   // TODO : may be improved with subscriptions
   // https://pinia.vuejs.org/core-concepts/state.html#Subscribing-to-the-state
@@ -32,15 +36,22 @@ export const useOneStore = defineStore('one', () => {
     const ls = getFromLocalStorage()
     if (ls) {
       const lsStore = JSON.parse(ls)
-      if (lsStore.providerType) initProvider(lsStore.providerType)
+      if (lsStore.providerType) initProvider(lsStore.providerType, true)
     }
   }
 
-  async function initProvider (providerTypeParam?: OneProviderType) {
+  async function initProvider (providerTypeParam?: OneProviderType, fromStorage?: boolean) {
     switch (providerTypeParam) {
       case 'local': provider.value = new OneProviderLocal()
       // case 'github': provider.value = new OneProviderGithub()
-      // case 'gitlab': provider.value = new OneProviderGitlab()
+      case 'gitlab':
+        provider.value = new OneProviderGitlab()
+        if (!fromStorage) provider.value.init()
+        else {
+          const isOAuthFinalized = await provider.value.finalizeOAuth()
+          console.log(isOAuthFinalized)
+          // if (!isOAuthFinalized) provider.value.init() // Redirect if OAuth not done
+        }
       default:
         break;
     }
@@ -68,6 +79,13 @@ export const useOneStore = defineStore('one', () => {
     }
   }
 
+  async function resetProvider () {
+    provider.value = null
+    providerType.value = undefined
+    localStorageClear()
+  }
+
+  // Main functions
   async function read (path: string): Promise<string> {
     if (provider.value) return await provider.value.read(path)
     else return ''
@@ -89,6 +107,9 @@ export const useOneStore = defineStore('one', () => {
     provider,
     loadProviderFromStorage,
     initProvider,
+    resetProvider,
+
+    // Main functions
     read,
     list,
   }

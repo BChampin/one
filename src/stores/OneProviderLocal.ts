@@ -4,6 +4,8 @@ export class OneProviderLocal implements OneProvider {
   constructor () {}
   type: OneProviderType = 'local'
 
+  async init () {}
+
   async read (path: string): Promise<string> {
     const request = await fetch(
       `/oneData/${path}`,

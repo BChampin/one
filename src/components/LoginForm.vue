@@ -49,14 +49,6 @@ onMounted(() => {
       <Button
         variant="outline"
         class="w-full"
-        @click="oneStore.read('bookmarks/bookmarks.json')"
-      >
-        <IconFileMultiple />
-        fetch
-      </Button>
-      <Button
-        variant="outline"
-        class="w-full"
         @click="oneStore.initProvider('github')"
       >
         <IconGitHub />
@@ -68,7 +60,7 @@ onMounted(() => {
         @click="oneStore.initProvider('gitlab')"
       >
         <IconGitLab />
-        Continue with GitLab (Not implemented yet)
+        Continue with GitLab (WIP)
       </Button>
     </div>
   </div>

@@ -24,6 +24,11 @@ const router = createRouter({
       name: 'login',
       component: () => import('../views/LoginView.vue'),
     },
+    {
+      path: '/oauth/callback',
+      name: 'oauthCallback',
+      component: () => import('../views/OauthView.vue'),
+    },
     // Public product related routes
     // Docs routes
     // App-modules routes

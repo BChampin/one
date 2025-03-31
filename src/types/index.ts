@@ -2,6 +2,7 @@ export type OneProviderType = 'local' | 'github' | 'gitlab'
 
 export type OneProvider = {
   type: OneProviderType
+  init () : Promise<void>
   read (path: string) : Promise<string>
 }
 

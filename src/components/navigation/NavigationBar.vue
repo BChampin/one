@@ -9,6 +9,7 @@ import {
   NavigationMenuList,
   navigationMenuTriggerStyle,
 } from '@/components/ui/navigation-menu'
+import { Button } from '@/components/ui/button'
 import PowerBar from '@/components/navigation/PowerBar.vue'
 import KbdButton from '@/components/atoms/KbdButton.vue'
 import { useOneStore } from '@/stores/one'
@@ -30,6 +31,11 @@ const displayedRoutes = computed (() => {
     return loggedInRoutes
   }
 })
+
+function logout () {
+  oneStore.resetProvider()
+  router.push({ name: 'login' })
+}
 </script>
 
 <template>
@@ -58,6 +64,13 @@ const displayedRoutes = computed (() => {
         </NavigationMenuItem>
       </NavigationMenuList>
     </NavigationMenu>
+
+    <Button
+      v-if="oneStore.loggedIn"
+      @click="logout"
+    >
+      Logout
+    </Button>
 
     <PowerBar />
   </div>
