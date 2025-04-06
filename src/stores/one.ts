@@ -47,11 +47,7 @@ export const useOneStore = defineStore('one', () => {
       case 'gitlab':
         provider.value = new OneProviderGitlab()
         if (!fromStorage) provider.value.init()
-        else {
-          const isOAuthFinalized = await provider.value.finalizeOAuth()
-          console.log(isOAuthFinalized)
-          // if (!isOAuthFinalized) provider.value.init() // Redirect if OAuth not done
-        }
+        else await provider.value.finalizeOAuth()
       default:
         break;
     }

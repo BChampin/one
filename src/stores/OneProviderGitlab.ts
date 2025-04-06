@@ -26,8 +26,10 @@ export class OneProviderGitlab implements OneProvider {
     // Validate state
     const storedState = sessionStorage.getItem('gitlab_oauth_state')
     if (!code || state !== storedState) {
-      console.error('OAuth state mismatch or missing code')
-      return false
+      if (localStorage.getItem('gitlab_refresh_token')) {
+        await this.refreshToken()
+        return
+      } else await this.init()
     }
 
     // Exchange code for access token
@@ -54,37 +56,63 @@ export class OneProviderGitlab implements OneProvider {
       if (data.access_token) {
         this.token = data.access_token
         localStorage.setItem('gitlab_token', String(this.token))
-        return true
+        localStorage.setItem('gitlab_refresh_token', String(data.refresh_token))
       }
-
     } catch (error) {
       console.error('OAuth token exchange failed', error)
     }
+  }
 
-    return false
+  async refreshToken () {
+    const refreshToken = localStorage.getItem('gitlab_refresh_token')
+    if (!refreshToken) throw new Error('No refresh token available')
+
+    const clientId = import.meta.env.VITE_GITLAB_CLIENT_ID
+    const response = await fetch('https://gitlab.com/oauth/token', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: new URLSearchParams({
+        grant_type: 'refresh_token',
+        refresh_token: refreshToken,
+        client_id: clientId,
+      }),
+    })
+
+    const data = await response.json()
+    if (!response.ok) throw new Error('Token refresh failed')
+
+    this.token = data.access_token
+    localStorage.setItem('gitlab_token', data.access_token)
+    localStorage.setItem('gitlab_refresh_token', data.refresh_token)
+  }
+
+  private async doOauthRequest (url: string) {
+    const callSetup = async () => {
+      const response = await fetch(url, {
+        headers: { Authorization: `Bearer ${this.token}` }
+      })
+      if (!response.ok) throw { status: response.status }
+      return await response.json()
+    }
+
+    try {
+      if (!this.token) throw { status: 401 }
+      return await callSetup()
+    } catch (e: any) {
+      if (e.status === 401) {
+        await this.refreshToken()
+        return await callSetup()
+      }
+      throw e
+    }
   }
 
   async read (path: string): Promise<string> {
-    if (!this.token) {
-      console.error('No GitLab access token')
-      return ''
-    }
-
-    const response = await fetch(`https://gitlab.com/api/v4/projects/${import.meta.env.VITE_GITLAB_PROJECT_ID}/repository/files/${encodeURIComponent(path)}/raw`, {
-      headers: { Authorization: `Bearer ${this.token}` }
-    })
-
-    return response.ok ? await response.text() : ''
+    return await this.doOauthRequest(`https://gitlab.com/api/v4/projects/${import.meta.env.VITE_GITLAB_PROJECT_ID}/repository/files/${encodeURIComponent(path)}/raw`)
   }
 
   async list (path: string): Promise<unknown> {
-    const request = await fetch(
-      `/oneData/${path}`,
-      {
-        method: 'GET',
-      }
-    ).then((res) => res.json())
-    return request
+    return await this.doOauthRequest(`https://gitlab.com/api/v4/projects/${import.meta.env.VITE_GITLAB_PROJECT_ID}/repository/tree/?path=${encodeURIComponent(path)}`)
   }
 
   // Specific

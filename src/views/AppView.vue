@@ -7,7 +7,6 @@ import { RouterView } from 'vue-router'
 
 <template>
   <div>
-    <h1>This is the home of application APPVIEW</h1>
     <RouterView class="p-4" />
   </div>
 </template>

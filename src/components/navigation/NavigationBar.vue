@@ -11,6 +11,7 @@ import {
 } from '@/components/ui/navigation-menu'
 import { Button } from '@/components/ui/button'
 import PowerBar from '@/components/navigation/PowerBar.vue'
+import ThemeButton from '@/components/navigation/ThemeButton.vue'
 import KbdButton from '@/components/atoms/KbdButton.vue'
 import { useOneStore } from '@/stores/one'
 
@@ -71,6 +72,8 @@ function logout () {
     >
       Logout
     </Button>
+
+    <ThemeButton />
 
     <PowerBar />
   </div>
