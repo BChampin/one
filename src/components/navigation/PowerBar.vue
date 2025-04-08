@@ -70,18 +70,19 @@ const selectedCommandOption = ref<CommandOption>()
 </script>
 
 <template>
-  <Command class="rounded-lg border shadow-md max-w-[450px]">
+  <Command class="rounded-lg border max-w-[450px]">
     <Popover>
       <PopoverTrigger>
         <CommandInput
           ref="commandInputRef"
           placeholder="Type a command or search..."
           :auto-focus="false"
-        />
-        <KbdButton
-          keys="Ctrl+K"
-          :callback="focusCommandInput"
-        />
+        >
+          <KbdButton
+            keys="Ctrl+K"
+            :callback="focusCommandInput"
+          />
+        </CommandInput>
       </PopoverTrigger>
       <PopoverContent
         class="p-0 popover-content-width-same-as-its-trigger"

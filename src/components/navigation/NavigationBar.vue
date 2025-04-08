@@ -66,15 +66,16 @@ function logout () {
       </NavigationMenuList>
     </NavigationMenu>
 
-    <Button
-      v-if="oneStore.loggedIn"
-      @click="logout"
-    >
-      Logout
-    </Button>
 
-    <ThemeButton />
-
-    <PowerBar />
+    <div class="flex items-center justify-end gap-x-2 pr-2">
+      <PowerBar />
+      <ThemeButton />
+      <Button
+        v-if="oneStore.loggedIn"
+        @click="logout"
+      >
+        Logout
+      </Button>
+    </div>
   </div>
 </template>
