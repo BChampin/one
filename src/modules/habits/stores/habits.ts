@@ -12,7 +12,7 @@ export const useHabitsStore = defineStore('habits', () => {
   const getHabits = async () => {
     const fileName = 'habits/habits.json'
     const rq = await oneStore.read(fileName)
-    habits.value = rq as Habit[]
+    habits.value = rq as unknown as Habit[]
     return habits.value
   }
 
@@ -20,7 +20,8 @@ export const useHabitsStore = defineStore('habits', () => {
     // Ensure compounded emojis are rendered - https://stackoverflow.com/a/72563636
     try {
       return (typeof hex === 'string' ? hex : '1f381').split('-').map(e => String.fromCodePoint(Number(`0x${e}`))).join('')
-    } catch (e) {}
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    } catch (e: unknown) {}
   }
 
   const habitDisplayed = ref('overview')
@@ -30,7 +31,7 @@ export const useHabitsStore = defineStore('habits', () => {
 
   const getRecords = async (year = new Date().getFullYear()) => {
     const rq = await oneStore.read(`habits/${year}.json`)
-    return rq as Record[]
+    return rq as unknown as Record[]
   }
 
   // const listRecords = async () => {
@@ -49,6 +50,8 @@ export const useHabitsStore = defineStore('habits', () => {
     habits,
     habitDisplayed,
     hexToEmo,
-    initStore
+    initStore,
+    records,
+    getRecords
   }
 })

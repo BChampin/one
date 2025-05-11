@@ -21,8 +21,8 @@ const router = useRouter()
 const displayedRoutes = computed (() => {
   if (!oneStore.loggedIn) {
     return [
-      { label: 'Home', name: 'home' },
-      { label: 'Login', name: 'login' },
+      { label: 'Home', name: 'home', shortcut: null },
+      { label: 'Login', name: 'login', shortcut: null },
     ]
   } else {
     const appRoutes = router.getRoutes().find(r => r.name === 'app').children

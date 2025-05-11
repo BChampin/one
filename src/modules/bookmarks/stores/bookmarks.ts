@@ -10,7 +10,7 @@ export const useBookmarksStore = defineStore('bookmarks', () => {
   const getBookmarks = async () => {
     const fileName = 'bookmarks/bookmarks.json'
     const rq = await oneStore.read(fileName)
-    spaces.value = rq as BookmarkSpace[]
+    spaces.value = rq as unknown as BookmarkSpace[]
     return spaces.value
   }
 

@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 
 function loadModulesRoutes () {
   const modules = import.meta.glob('../modules/*/routes.ts', { eager: true })
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const modulesRoutes = Object.values(modules).flatMap((mod: any) => mod.default || [])
   return modulesRoutes
 }

@@ -98,7 +98,7 @@ export class OneProviderGitlab implements OneProvider {
     try {
       if (!this.token) throw { status: 401 }
       return await callSetup()
-    } catch (e: any) {
+    } catch (e: unknown) {
       if (e.status === 401) {
         await this.refreshToken()
         return await callSetup()

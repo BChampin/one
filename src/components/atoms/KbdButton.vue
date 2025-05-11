@@ -5,7 +5,7 @@ import { useMagicKeys } from '@vueuse/core'
 
 const props = defineProps<{
   keys: string,
-  callback: Function
+  callback: () => void
 }>()
 
 const magicKeys = useMagicKeys()
