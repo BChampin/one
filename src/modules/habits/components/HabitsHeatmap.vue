@@ -23,7 +23,7 @@ const LEFT_SECTION_WIDTH = Math.ceil(BASE_SQUARE_SIZE * 2.5)
 const TOP_SECTION_HEIGHT = BASE_SQUARE_SIZE + (BASE_SQUARE_SIZE / 2)
 
 // Dates - helpers
-const chunk = (arr = [], chunkSize = 1, cache = []) => {
+const chunk = <T>(arr: T[] = [], chunkSize = 1, cache: T[][] = []): T[][] => {
   const tmp = [...arr]
   if (chunkSize <= 0) return cache
   while (tmp.length) cache.push(tmp.splice(0, chunkSize))
@@ -60,7 +60,7 @@ const monthsLabels = computed(() => {
   for (let monthIndex = 0; monthIndex < 12; monthIndex++) {
     months.push({
       label: lo.months[monthIndex],
-      offset: weeks.value.findIndex(week => week.map(date => date !== EMPTY_SQUARE ? date.date.getMonth() : -1).includes(monthIndex))
+      offset: weeks.value.findIndex(week => week.map(date => date !== EMPTY_SQUARE && typeof date === 'object' ? date.date.getMonth() : -1).includes(monthIndex))
     })
   }
   return months
@@ -129,7 +129,7 @@ const viewbox = computed(() => { return `0 0 ${LEFT_SECTION_WIDTH + (SQUARE_SIZE
             :key="dayIndex"
           >
             <rect
-              v-if="day !== EMPTY_SQUARE"
+              v-if="day !== EMPTY_SQUARE && typeof day === 'object'"
               :rx="SQUARE_BORDER_SIZE"
               :ry="SQUARE_BORDER_SIZE"
               :transform="getDayPosition(dayIndex)"

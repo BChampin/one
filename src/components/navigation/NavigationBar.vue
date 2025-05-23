@@ -14,22 +14,23 @@ import PowerBar from '@/components/navigation/PowerBar.vue'
 import ThemeButton from '@/components/navigation/ThemeButton.vue'
 import KbdButton from '@/components/atoms/KbdButton.vue'
 import { useOneStore } from '@/stores/one'
+import type { RouteType } from '@/types'
 
 const oneStore = useOneStore()
 const router = useRouter()
 
-const displayedRoutes = computed (() => {
+const displayedRoutes = computed<RouteType[]>(() => {
   if (!oneStore.loggedIn) {
     return [
       { label: 'Home', name: 'home', shortcut: null },
       { label: 'Login', name: 'login', shortcut: null },
-    ]
+    ] as unknown as RouteType[]
   } else {
-    const appRoutes = router.getRoutes().find(r => r.name === 'app').children
+    const appRoutes = (router.getRoutes().find(r => r.name === 'app') ?? { children: [] }).children
     const loggedInRoutes = [{ label: 'Home', name: 'app', shortcut: 'Ctrl+H' }]
     // loggedInRoutes.concat(appRoutes)
-    for (const child of appRoutes) loggedInRoutes.push(child)
-    return loggedInRoutes
+    for (const child of appRoutes) loggedInRoutes.push(Object(child))
+    return loggedInRoutes as RouteType[]
   }
 })
 

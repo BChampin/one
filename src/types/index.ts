@@ -25,3 +25,9 @@ export type OneConfigType = {
 //     }
 //   }
 // }
+
+export type RouteType = {
+  label?: string
+  name?: string
+  shortcut?: string
+}
