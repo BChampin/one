@@ -1,50 +1,29 @@
-# one
+# Vite+ Monorepo Starter
 
-This template should help get you started developing with Vue 3 in Vite.
+A starter for creating a Vite+ monorepo.
 
-## Recommended IDE Setup
+## Development
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+- Check everything is ready:
 
-## Type Support for `.vue` Imports in TS
-
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vite.dev/config/).
-
-## Project Setup
-
-```sh
-npm install
+```bash
+vp run ready
 ```
 
-### Compile and Hot-Reload for Development
+- Run the tests:
 
-```sh
-npm run dev
+```bash
+vp run test -r
 ```
 
-### Type-Check, Compile and Minify for Production
+- Build the monorepo:
 
-```sh
-npm run build
+```bash
+vp run build -r
 ```
 
-### Lint with [ESLint](https://eslint.org/)
+- Run the development server:
 
-```sh
-npm run lint
+```bash
+vp run dev
 ```
-
-
-
-- config file : `one.config.json`
-
-
-- [Vite](https://vite.dev/)
-- [Shadcn-Vue](https://www.shadcn-vue.com/)
-- [Icons](https://pictogrammers.com/library/mdi/)
-
----
