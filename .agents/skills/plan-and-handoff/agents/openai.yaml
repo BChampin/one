@@ -1,0 +1,7 @@
+interface:
+  display_name: "Plan & Handoff"
+  short_description: "Plan and hand off shared project knowledge"
+  default_prompt: "Use $plan-and-handoff to update the project plan or prepare a compact handoff."
+
+policy:
+  allow_implicit_invocation: true
