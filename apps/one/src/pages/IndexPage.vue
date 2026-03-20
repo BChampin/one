@@ -1,8 +1,11 @@
 <script setup lang="ts">
-import InputText from 'primevue/inputtext';
+import InputText from 'primevue/inputtext'
 
-import Select from 'primevue/select';
+import Select from 'primevue/select'
 
+import { useOne } from '@/plugins/one'
+
+const one = useOne()
 </script>
 
 <template>
@@ -15,5 +18,11 @@ import Select from 'primevue/select';
   <div>
     <InputText type="text" />
     <Select />
+  </div>
+  <div># On test one</div>
+  <div>
+    <pre>
+      {{ one.ready ? JSON.stringify(one.config, null, 2) : 'One is still initializing...' }}
+    </pre>
   </div>
 </template>

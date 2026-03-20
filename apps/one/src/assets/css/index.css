@@ -10,8 +10,9 @@
   font-style: normal;
   font-display: swap;
   font-weight: 400;
-  src: local(''),
-    url('/fonts/Ubuntu-Regular.ttf') format('truetype')
+  src:
+    local(''),
+    url('/fonts/Ubuntu-Regular.ttf') format('truetype');
 }
 
 body {

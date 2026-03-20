@@ -1,5 +1,4 @@
-import { createRouter, createWebHistory } from "vue-router";
-
+import { createRouter, createWebHistory } from 'vue-router'
 
 const routes = [
   // {
@@ -9,7 +8,7 @@ const routes = [
   //     { path: '', name: 'index', alias: ['home'], component: () => import('@/pages/IndexPage.vue') }
   //   ],
   // },
-  { path: '/', name: 'index', component: () => import('@/pages/IndexPage.vue') }
+  { path: '/', name: 'index', component: () => import('@/pages/IndexPage.vue') },
 
   // Always leave this as last one,
   // but you can also remove it
@@ -21,7 +20,7 @@ const routes = [
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
-  routes
-});
+  routes,
+})
 
-export default router;
+export default router

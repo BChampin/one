@@ -1,18 +1,18 @@
 /* root variables */
 :root {
   /* colors */
-  --color-primary: #00A9FF;
-  --color-accent: #8739F9;
-  --color-grey: #F2F5F5;
+  --color-primary: #00a9ff;
+  --color-accent: #8739f9;
+  --color-grey: #f2f5f5;
   --color-text: #565360;
-  --color-label: #908E9B;
-  --color-disabled: #E1DFE9;
-  --color-positive: #00CC67;
-  --color-negative: #E40173;
+  --color-label: #908e9b;
+  --color-disabled: #e1dfe9;
+  --color-positive: #00cc67;
+  --color-negative: #e40173;
 
   /* backgrounds */
   --color-dark: #262338;
-  --color-light: #F7F7FC;
+  --color-light: #f7f7fc;
 
   /* sizing */
   --size-sm-1: 0.25rem;
@@ -27,14 +27,28 @@
 }
 
 /* backgrounds */
-.bg-disabled { background: var(--color-disabled) }
-.bg-light { background: var(--color-light) }
-.bg-dark { background: var(--color-dark) }
-.text-light { color: var(--color-light) }
-.text-dark { color: var(--color-dark) }
+.bg-disabled {
+  background: var(--color-disabled);
+}
+.bg-light {
+  background: var(--color-light);
+}
+.bg-dark {
+  background: var(--color-dark);
+}
+.text-light {
+  color: var(--color-light);
+}
+.text-dark {
+  color: var(--color-dark);
+}
 
-.text-text { color: var(--color-text) }
-.text-label { color: var(--color-label) }
+.text-text {
+  color: var(--color-text);
+}
+.text-label {
+  color: var(--color-label);
+}
 
 body.body--light {
   background: var(--color-light);
@@ -44,4 +58,9 @@ body.body--light {
 body.body--dark {
   background: var(--color-dark);
   color: var(--color-grey);
+}
+
+/* custom */
+.text-decoration-none {
+  text-decoration: none;
 }
